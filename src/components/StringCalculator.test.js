@@ -34,4 +34,11 @@ describe("StringCalculator Basic", () => {
   test("throws on multiple negatives", () => {
     expect(() => sc.Add("1,-2,-3")).toThrow("negatives not allowed: -2, -3");
   });
+
+  test("numbers greater than 1000 are ignored", () => {
+    expect(sc.Add("2,1001")).toBe(2);
+  });
+  test("support single character custom delimiter", () => {
+    expect(sc.Add("//;\n1;2")).toBe(3);
+  });
 });
