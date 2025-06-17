@@ -38,7 +38,27 @@ describe("StringCalculator Basic", () => {
   test("numbers greater than 1000 are ignored", () => {
     expect(sc.Add("2,1001")).toBe(2);
   });
+
   test("support single character custom delimiter", () => {
     expect(sc.Add("//;\n1;2")).toBe(3);
   });
+
+  test("support multi-character delimiter", () => {
+    expect(sc.Add("//[***]\n1***2***3")).toBe(6);
+  });
+
+  test("support multiple delimiters", () => {
+    expect(sc.Add("//[*][%]\n1*2%3")).toBe(6);
+  });
+
+  test("support multiple multi-character delimiters", () => {
+    expect(sc.Add("//[**][%%]\n1**2%%3")).toBe(6);
+  });
+
+  test("track number of Add calls", () => {
+    sc.Add("1,2");
+    sc.Add("3");
+    expect(sc.GetCalledCount()).toBe(2);
+  });
+  
 });
